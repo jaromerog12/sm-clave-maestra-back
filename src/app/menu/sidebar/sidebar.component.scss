@@ -1,0 +1,45 @@
+@import '../../../scss/variables';
+
+.sidenav-container {
+  height: 100vh;            /* Ajusta la altura del contenedor para que ocupe toda la altura del viewport */
+  margin: 0;                /* Elimina los márgenes */
+  display: flex;            /* Usa Flexbox para manejar la disposición */
+  flex-direction: column;   /* Asegúrate de que el contenedor use la dirección de columna si es necesario */
+}
+
+.sidenav {
+  width: 60px; /* Ajusta el ancho del sidebar para mostrar solo íconos */
+}
+
+.sidenav-bg {
+  background-color: $purple;
+}
+
+.sidenav-content {
+  flex: 1;
+}
+
+.is-mobile .sidenav {
+  width: 56px; /* Ajusta el ancho del sidebar en modo móvil */
+}
+
+.is-mobile .toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+a.mat-list-item {
+  display: flex;           /* Usa flexbox para alinear los hijos horizontalmente */
+  align-items: center;     /* Alinea verticalmente el icono y el texto */
+  text-decoration: none;   /* Opcional: Elimina el subrayado del enlace */
+}
+
+.mat-icon.sidenav-text {
+  margin-right: 8px;       /* Espacio entre el icono y el texto, ajusta según sea necesario */
+  font-size: 24px;         /* Ajusta el tamaño del icono si es necesario */
+}
+
+.sidenav-text {
+  color: $gray-x-light;    /* Aplica el color al texto */
+  line-height: 1; 
+}
