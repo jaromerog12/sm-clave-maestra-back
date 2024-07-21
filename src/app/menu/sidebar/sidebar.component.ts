@@ -20,7 +20,7 @@ export class SidebarComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   sidebarClass = 'sidebar-dark-primary';
   title: string = '';
-
+  selectedNav: string | null = null;
 
   fillerNav = [
     { label: 'Home', icon: 'home', path: '/home'},
@@ -41,6 +41,7 @@ export class SidebarComponent implements OnDestroy {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd): void => {
       this.title = this.routeTitles.get(event.urlAfterRedirects) || '';
+      this.selectedNav = this.title;
     });
   }
 
@@ -50,6 +51,7 @@ export class SidebarComponent implements OnDestroy {
 
   changeTitle(newTitle: string) {
     this.title = newTitle;
+    this.selectedNav = newTitle;
   }
 
   private routeTitles = new Map<string, string>(

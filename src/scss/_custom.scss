@@ -1,3 +1,5 @@
+@import './palette';
+
 .custom-snackbar {
     --mdc-snackbar-container-color: #664caf; 
     --mdc-snackbar-supporting-text-color: #c2f800; 
@@ -34,3 +36,65 @@
     --mdc-snackbar-supporting-text-color: #ffffff !important; /* Texto blanco */
     --mat-snack-bar-button-color: #ffffff !important;
   }
+
+  html, body { height: 100%; }
+  body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+  :root {
+    //SIDENAV
+    --mat-sidenav-container-background-color: #{$primary-10};
+    --mat-sidenav-container-text-color: #{$primary-90};
+    --mat-sidenav-content-background-color: #{$neutral-variant-80};
+    --mat-sidenav-content-text-color: #{$primary-90};
+
+    //TOOLBAR
+    --mat-toolbar-container-background-color: #{$primary-10};
+    --mat-toolbar-container-text-color: #{$primary-90};
+
+    
+  mat-nav-list > a > span > span{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #{$primary-90} !important;
+  }
+  
+  mat-nav-list > a {
+    display: flex;
+    align-items: center; // Alinea verticalmente el ícono y el texto
+    text-decoration: none; // Quita el subrayado del enlace
+    padding: 8px 16px; // Ajusta el padding según sea necesario
+    color: #{$primary-90} !important; // Color del texto por defecto
+    transition: background-color 0.3s; // Añade una transición para el cambio de color de fondo
+  }
+  
+  /* Estilo para el hover */
+  mat-nav-list > a:hover {
+    background-color: #{$primary-20} !important; // Color de fondo al pasar el ratón
+    color: #{primary-10} !important;
+  }
+  
+  mat-nav-list > a > span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #{$primary-90} !important; // Color del texto por defecto
+    transition: color 0.3s; // Añade una transición para el cambio de color del texto
+  }
+  
+  /* Estilo para el estado activo */
+  mat-nav-list > a.active {
+    background-color: #{$primary-40} !important; // Color de fondo cuando el enlace está activo
+    color: #{$primary-90} !important; // Color del texto cuando el enlace está activo
+  }
+  
+  /* Estilo para el foco de accesibilidad */
+  mat-nav-list > a:focus {
+    background-color: #{$primary-40} !important; // Color de fondo cuando el enlace está activo
+    color: #{$primary-90} !important; // Color del texto cuando el enlace está activo
+  }
+
+  mat-toolbar > button {
+    color: #{$primary-90} !important;
+  }
+}

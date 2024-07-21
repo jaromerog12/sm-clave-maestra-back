@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, model, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -66,7 +66,7 @@ export class CrearClaveMaestraComponent {
   constructor(private fb: FormBuilder, private _snackBar: MatSnackBar) {
     this.options = this.fb.group({
       id: [''],
-      nombreClave: ['']
+      nombreClave: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
 
@@ -75,6 +75,7 @@ export class CrearClaveMaestraComponent {
       const nuevaClave: ClaveMaestra = this.options.value;
       this.claveMaestraService.addClaveMaestra(nuevaClave).subscribe({
         next: (resp) => {
+          this.dialogRef.close(resp);
           this.openSnackBar(
             'Clave maestra creada exitosamente',
             3000,
@@ -97,11 +98,7 @@ export class CrearClaveMaestraComponent {
 
   onCancelClick(): void {
     this.isLoading = false;
-    this.dialogRef.close(
-      this.claveMaestra = {
-      id: 1,
-      name: this.options.get('nombreClave')?.value
-    });
+    this.dialogRef.close();
   }
 
   openSnackBar(message: string, duration: number, classStyles: Array<string>): void {
@@ -109,5 +106,12 @@ export class CrearClaveMaestraComponent {
       duration: duration,
       panelClass: classStyles
     });
+  }
+
+  get nombreClave() {
+    const control = this.options.get('nombreClave');
+    console.log('nombreClave control:', control);
+    console.log(control);
+    return control;
   }
 }

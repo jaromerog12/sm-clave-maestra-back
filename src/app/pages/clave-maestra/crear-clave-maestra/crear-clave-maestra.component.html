@@ -12,6 +12,20 @@
             <mat-label>Nombre</mat-label>
             <input matInput  formControlName="nombreClave" placeholder="Ejemplo: Seguridad" />
           </mat-form-field>
+          @if (nombreClave?.invalid && (nombreClave?.dirty || nombreClave?.touched)) {
+            <div>
+              @if (nombreClave?.errors?.['required']) {
+                <div class="text-danger">
+                  El campo Nombre Clave es obligatorio.
+                </div>
+              }
+              @if (nombreClave?.errors?.['minlength']) {
+                <div class="text-danger">
+                  El campo Nombre Clave debe tener al menos 5 caracteres.
+                </div>
+              }
+            </div>
+          }
         </div>
       </form>
     </mat-card-content>

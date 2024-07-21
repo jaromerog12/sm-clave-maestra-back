@@ -1,20 +1,14 @@
-@import '../../../scss/variables';
-/*
+@import '../../../scss/palette';
+
 .sidenav-container {
   height: 100vh;            
   margin: 0;                
   display: flex;            
-  flex-direction: column;   
-  background-color: $purple-10;
+  flex-direction: column;
 }
 
 .sidenav {
   width: 60px; 
-}
-
-
-.sidenav-bg {
-  background-color: $purple;
 }
 
 .sidenav-content {
@@ -31,9 +25,18 @@
 }
 
 a.mat-list-item {
-  display: flex;           
-  align-items: center;    
-  text-decoration: none;   
+  display: flex;
+  align-items: center; // Alinea verticalmente el ícono y el texto
+  padding: 8px 16px; // Ajusta el padding según sea necesario
+}
+
+.mat-icon {
+  margin-right: 8px; // Espacio entre el ícono y el texto
+  font-size: 24px; // Tamaño del ícono, ajústalo según sea necesario
+}
+
+span.sidenav-item-color {
+  font-size: 16px; // Tamaño del texto, ajústalo según sea necesario
 }
 
 .mat-icon.sidenav-text {
@@ -41,8 +44,12 @@ a.mat-list-item {
   font-size: 24px;        
 }
 
-.sidenav-text {
-  color: $white;    
+.sidenav-text {  
   line-height: 1; 
+}
+
+/*
+.sidenav-item-color {
+  color: #{$primary-90} !important;
 }
   */
