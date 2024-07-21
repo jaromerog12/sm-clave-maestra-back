@@ -1,0 +1,36 @@
+.custom-snackbar {
+    --mdc-snackbar-container-color: #664caf; 
+    --mdc-snackbar-supporting-text-color: #c2f800; 
+  }
+  
+  .custom-snackbar > div {
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    width: 100%; 
+    box-sizing: border-box; 
+    text-align: center; 
+  }
+  
+  /* Clases específicas */
+  .error-snackbar {
+    @extend .custom-snackbar;
+    --mdc-snackbar-container-color: #8d342d !important; /* Rojo para errores */
+    --mdc-snackbar-supporting-text-color: #ffffff !important; /* Texto blanco */
+  }
+  
+  .warning-snackbar {
+    @extend .custom-snackbar;
+    --mdc-snackbar-container-color: #a06813 !important; /* Amarillo para advertencias */
+    --mdc-snackbar-supporting-text-color: #ffffff !important; /* Texto blanco */
+    --mat-snack-bar-button-color: #ffffff !important;
+  }
+  
+  .success-snackbar {
+    @extend .custom-snackbar;
+    --mdc-snackbar-container-color: #317934 !important; /* Verde para éxito */
+    --mdc-snackbar-supporting-text-color: #ffffff !important; /* Texto blanco */
+    --mat-snack-bar-button-color: #ffffff !important;
+  }

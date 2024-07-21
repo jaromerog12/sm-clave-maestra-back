@@ -6,40 +6,54 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { SIDEBAR_DARK_SKINS, SIDEBAR_LIGHT_SKINS } from '../../utils/theme';
+import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CommonModule, RouterOutlet],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CommonModule, RouterOutlet, RouterModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   sidebarClass = 'sidebar-dark-primary';
-  sidebarLightSkins = SIDEBAR_LIGHT_SKINS;
-  sidebarDarkSkins = SIDEBAR_DARK_SKINS;
+  title: string = '';
 
-  
+
   fillerNav = [
-    { label: 'Home', icon: 'home' },
-    { label: 'Settings', icon: 'settings' },
-    { label: 'Info', icon: 'info' }
+    { label: 'Home', icon: 'home', path: '/home'},
+    { label: 'Clave maestra', icon: 'key', path: '/clave-maestra' },
+    { label: 'Info', icon: 'info', path: '/info' }
   ];
 
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd): void => {
+      this.title = this.routeTitles.get(event.urlAfterRedirects) || '';
+    });
   }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  //shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
+  changeTitle(newTitle: string) {
+    this.title = newTitle;
+  }
+
+  private routeTitles = new Map<string, string>(
+    this.fillerNav.map(nav => [nav.path, nav.label])
+  );
+
 }

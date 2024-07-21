@@ -1,0 +1,34 @@
+
+<mat-dialog-content>
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Crear clave maestra</mat-card-title>
+    </mat-card-header>
+    <br/>
+    <mat-card-content>
+      <form [formGroup]="options">
+        <div class="example-form-fields">
+          <mat-form-field [floatLabel]="floatLabel()">
+            <mat-label>Nombre</mat-label>
+            <input matInput  formControlName="nombreClave" placeholder="Ejemplo: Seguridad" />
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button extended routerLink="." (click)="onCancelClick()">
+        <mat-icon>cancel</mat-icon>
+        Cancelar
+      </a>
+      <a mat-fab extended routerLink="." (click)="onSubmit()">
+         @if (!isLoading) {
+            <mat-icon>save</mat-icon>
+         }
+         @else {
+          <mat-icon><mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner></mat-icon>
+         }
+         Guardar
+      </a>
+    </mat-card-actions>
+  </mat-card>
+</mat-dialog-content>
