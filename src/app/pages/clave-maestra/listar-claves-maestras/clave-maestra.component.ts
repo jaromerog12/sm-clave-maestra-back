@@ -45,7 +45,6 @@ export class ClaveMaestraComponent implements AfterViewInit, OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result !== undefined) {
         this.clavesMaestras.push(result);
         this.dataSource.data = [...this.clavesMaestras];
@@ -57,9 +56,19 @@ export class ClaveMaestraComponent implements AfterViewInit, OnInit {
     this.claveMaestraService.getClavesMaestras().subscribe({
       next: (resp) => {
         console.log(resp);
-        this.clavesMaestras = resp;
-        this.dataSource.data = [...this.clavesMaestras];
-        console.log(this.clavesMaestras);
+        try {
+          this.clavesMaestras = resp;
+          this.dataSource.data = [...this.clavesMaestras];
+        }catch(error){
+          if (error instanceof Error) {
+            this.openSnackBar(
+              'Error al cargar claves maestras: ' + error.message,
+              5000,
+              ['custom-snackbar', 'error-snackbar']
+            );
+          }
+        }
+        
       },
       error: (error) => {
         this.openSnackBar(
