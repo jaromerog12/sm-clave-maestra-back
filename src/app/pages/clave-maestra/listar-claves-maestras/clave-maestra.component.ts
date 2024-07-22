@@ -81,6 +81,6 @@ export class ClaveMaestraComponent implements AfterViewInit, OnInit {
 }
 
 export interface ClaveMaestra {
-  name: string;
+  nombre: string;
   id: number;
 }

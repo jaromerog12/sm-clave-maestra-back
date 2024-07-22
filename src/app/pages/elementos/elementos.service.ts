@@ -13,6 +13,6 @@ export class ElementosService {
   constructor(private http: HttpClient) { }
 
   getElementos(): Observable<Elemento[]> {
-    return this.http.get<Elemento[]>(this.apiUrl);
+    return this.http.get<Elemento[]>(`${this.apiUrl}/listar`);
   }
 }
