@@ -8,20 +8,20 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ClaveMaestraService {
-  private apiUrl = `${environment.apiUrl}`; // URL del endpoint
+  private apiUrl = `${environment.apiUrl}/clave_maestra`; // URL del endpoint
 
   constructor(private http: HttpClient) { }
 
   // Método para obtener los datos desde el endpoint
   getClavesMaestras(): Observable<ClaveMaestra[]> {
-    return this.http.get<{ data: ClaveMaestra[] }>(`${this.apiUrl}/list-master-keys`)
+    return this.http.get<{ data: ClaveMaestra[] }>(`${this.apiUrl}/listar`)
       .pipe(
         map(response => response.data)
       );
   }
 
   addClaveMaestra(nuevaClave: ClaveMaestra): Observable<ClaveMaestra> {
-    return this.http.post<{ data: ClaveMaestra }>(`${this.apiUrl}/create-master-key`, nuevaClave)
+    return this.http.post<{ data: ClaveMaestra }>(`${this.apiUrl}/crear`, nuevaClave)
       .pipe(
         map(response => response.data)
       );
