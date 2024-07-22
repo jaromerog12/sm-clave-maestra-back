@@ -1,19 +1,11 @@
-FROM node:16-alpine
+FROM node:alpine
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY . /usr/src/app
+
+RUN npm install -g @angular/cli
 
 RUN npm install
 
-COPY . .
-
-RUN npm run build
-
-RUN npm install -g http-server
-
-WORKDIR /app/dist/sm-clave-maestra-front
-
-EXPOSE 80
-
-CMD ["http-server", "-p", "80"]
+CMD ["ng", "serve", "--host", "0.0.0.0"]
