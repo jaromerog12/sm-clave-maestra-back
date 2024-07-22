@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environment/environment';
 import { HttpClient } from '@angular/common/http';
-import { ClaveMaestra } from './listar-claves-maestras/clave-maestra.component';
+import { ClaveMaestra } from './listar-claves-maestras/listar-clave-maestra.component';
 import { map, Observable } from 'rxjs';
 
 @Injectable({

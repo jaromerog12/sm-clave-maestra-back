@@ -16,7 +16,7 @@ import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ClaveMaestra } from '../listar-claves-maestras/clave-maestra.component';
+import { ClaveMaestra } from '../listar-claves-maestras/listar-clave-maestra.component';
 import { ClaveMaestraService } from '../clave-maestra.service';
 import { HttpClientModule } from '@angular/common/http';
 

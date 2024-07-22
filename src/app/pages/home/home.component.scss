@@ -1,0 +1,14 @@
+.container-img {
+    margin-top: -6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Evita el scroll */
+    height: calc(100vh - var(--mat-toolbar-standard-height));
+}
+
+.container-img img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+}

@@ -23,10 +23,9 @@ export class SidebarComponent implements OnDestroy {
   selectedNav: string | null = null;
 
   fillerNav = [
-    { label: 'Home', icon: 'home', path: '/home' },
+    { label: 'Home', icon: 'home', path: '/' },
     { label: 'Clave maestra', icon: 'key', path: '/clave-maestra' },
-    { label: 'Elementos', icon: 'key', path: '/elementos' },
-    { label: 'Info', icon: 'info', path: '/info' }
+    { label: 'Elementos', icon: 'key', path: '/elementos' }
   ];
 
   private _mobileQueryListener: () => void;

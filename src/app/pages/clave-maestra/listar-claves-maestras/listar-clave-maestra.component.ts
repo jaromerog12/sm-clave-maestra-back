@@ -14,8 +14,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-clave-maestra',
   standalone: true,
   imports: [MatIconModule, MatTableModule, MatPaginatorModule, MatButtonModule, HttpClientModule],
-  templateUrl: './clave-maestra.component.html',
-  styleUrl: './clave-maestra.component.scss',
+  templateUrl: './listar-clave-maestra.component.html',
+  styleUrl: './listar-clave-maestra.component.scss',
   providers: [ClaveMaestraService]
 })
 export class ClaveMaestraComponent implements AfterViewInit, OnInit {
