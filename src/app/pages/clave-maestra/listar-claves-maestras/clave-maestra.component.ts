@@ -39,7 +39,10 @@ export class ClaveMaestraComponent implements AfterViewInit, OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CrearClaveMaestraComponent);
+    const dialogRef = this.dialog.open(CrearClaveMaestraComponent, {
+      width: '600px',
+      disableClose: true
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
