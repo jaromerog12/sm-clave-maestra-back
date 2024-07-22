@@ -1,10 +1,10 @@
-import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
-import {MatListModule} from '@angular/material/list';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -23,8 +23,9 @@ export class SidebarComponent implements OnDestroy {
   selectedNav: string | null = null;
 
   fillerNav = [
-    { label: 'Home', icon: 'home', path: '/home'},
+    { label: 'Home', icon: 'home', path: '/home' },
     { label: 'Clave maestra', icon: 'key', path: '/clave-maestra' },
+    { label: 'Elementos', icon: 'key', path: '/elementos' },
     { label: 'Info', icon: 'info', path: '/info' }
   ];
 

@@ -1,0 +1,18 @@
+<mat-dialog-content>
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Tipo de elemento</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+  <br />
+  <mat-card-content>
+    <mat-radio-group [(ngModel)]="selectedOption">
+      <mat-radio-button value="login">Login</mat-radio-button>
+      <mat-radio-button value="secreto">Secreto</mat-radio-button>
+    </mat-radio-group>
+  </mat-card-content>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button (click)="getSelectedValues()" [disabled]="!selectedOption">Aceptar</button>
+  </div>
+</mat-dialog-content>

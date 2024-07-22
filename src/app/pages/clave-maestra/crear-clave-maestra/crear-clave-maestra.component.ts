@@ -10,14 +10,14 @@ import {
   MatDialogContent,
   MatDialogRef
 } from '@angular/material/dialog';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { map } from 'rxjs';
-import {toSignal} from '@angular/core/rxjs-interop';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ClaveMaestra } from '../listar-claves-maestras/clave-maestra.component';
-import { ClaveMaestraService } from '../../clave-maestra.service';
+import { ClaveMaestraService } from '../clave-maestra.service';
 import { HttpClientModule } from '@angular/common/http';
 
 export interface DialogData {
@@ -29,19 +29,19 @@ export interface DialogData {
   selector: 'app-crear',
   standalone: true,
   imports: [
-    MatFormFieldModule, 
+    MatFormFieldModule,
     FormsModule,
-    MatButtonModule, 
-    MatInputModule, 
-    MatDialogActions, 
-    MatDialogContent, 
-    MatDialogClose, 
-    MatCardModule, 
-    MatButtonModule, 
+    MatButtonModule,
+    MatInputModule,
+    MatDialogActions,
+    MatDialogContent,
+    MatDialogClose,
+    MatCardModule,
+    MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule, 
+    MatProgressSpinnerModule,
     HttpClientModule
   ],
   templateUrl: './crear-clave-maestra.component.html',
@@ -55,7 +55,7 @@ export class CrearClaveMaestraComponent {
   readonly floatLabelControl = new FormControl('auto' as FloatLabelType);
   protected readonly floatLabel = toSignal(
     this.floatLabelControl.valueChanges.pipe(map(v => v || 'auto')),
-    {initialValue: 'auto'},
+    { initialValue: 'auto' },
   );
   options: FormGroup;
   isLoading = false;
@@ -82,9 +82,9 @@ export class CrearClaveMaestraComponent {
             ['custom-snackbar', 'success-snackbar']
           )
           console.log('Clave Maestra añadida:', resp);
-          
+
         },
-        error: (error)=> {
+        error: (error) => {
           this.openSnackBar(
             'Error al crear clave maestra',
             5000,
