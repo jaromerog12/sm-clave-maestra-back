@@ -45,7 +45,6 @@ constructor(private _snackBar: MatSnackBar) {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result !== undefined) {
         this.clavesMaestras.push(result);
         this.dataSource.data = [...this.clavesMaestras];
@@ -57,9 +56,19 @@ constructor(private _snackBar: MatSnackBar) {}
     this.claveMaestraService.getClavesMaestras().subscribe({
       next: (resp) => {
         console.log(resp);
-        this.clavesMaestras = resp;
-        this.dataSource.data = [...this.clavesMaestras];
-        console.log(this.clavesMaestras);
+        try {
+          this.clavesMaestras = resp;
+          this.dataSource.data = [...this.clavesMaestras];
+        }catch(error){
+          if (error instanceof Error) {
+            this.openSnackBar(
+              'Error al cargar claves maestras: ' + error.message,
+              5000,
+              ['custom-snackbar', 'error-snackbar']
+            );
+          }
+        }
+        
       },
       error: (error) => {
         this.openSnackBar(
@@ -81,6 +90,6 @@ constructor(private _snackBar: MatSnackBar) {}
 }
 
 export interface ClaveMaestra {
-  name: string;
+  nombre: string;
   id: number;
 }

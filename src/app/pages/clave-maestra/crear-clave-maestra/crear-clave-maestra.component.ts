@@ -66,7 +66,7 @@ export class CrearClaveMaestraComponent {
   constructor(private fb: FormBuilder, private _snackBar: MatSnackBar) {
     this.options = this.fb.group({
       id: [''],
-      nombreClave: ['', [Validators.required, Validators.minLength(5)]]
+      nombre: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
 
@@ -108,10 +108,8 @@ export class CrearClaveMaestraComponent {
     });
   }
 
-  get nombreClave() {
-    const control = this.options.get('nombreClave');
-    console.log('nombreClave control:', control);
-    console.log(control);
+  get nombre() {
+    const control = this.options.get('nombre');
     return control;
   }
 }

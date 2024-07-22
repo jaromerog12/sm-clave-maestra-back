@@ -10,16 +10,16 @@
         <div class="example-form-fields">
           <mat-form-field [floatLabel]="floatLabel()"  class="w-100">
             <mat-label>Nombre</mat-label>
-            <input matInput  formControlName="nombreClave" placeholder="Ejemplo: Seguridad" />
+            <input matInput  formControlName="nombre" placeholder="Ejemplo: Seguridad" />
           </mat-form-field>
-          @if (nombreClave?.invalid && (nombreClave?.dirty || nombreClave?.touched)) {
+          @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)) {
             <div>
-              @if (nombreClave?.errors?.['required']) {
+              @if (nombre?.errors?.['required']) {
                 <div class="text-danger">
                   El campo Nombre Clave es obligatorio.
                 </div>
               }
-              @if (nombreClave?.errors?.['minlength']) {
+              @if (nombre?.errors?.['minlength']) {
                 <div class="text-danger">
                   El campo Nombre Clave debe tener al menos 5 caracteres.
                 </div>
