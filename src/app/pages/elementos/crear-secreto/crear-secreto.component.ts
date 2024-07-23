@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialogContent } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, FloatLabelType } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { CdkTextareaAutosize, TextFieldModule} from '@angular/cdk/text-field';
+import { ClaveMaestra } from '../../clave-maestra/listar-claves-maestras/listar-clave-maestra.component';
+import { ClaveMaestraService } from '../../clave-maestra/clave-maestra.service';
+import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-crear-secreto',
@@ -17,19 +24,64 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatDialogContent
+    MatDialogContent,
+    MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    TextFieldModule,
+    MatSelectModule,
+    CommonModule
   ]
 })
 export class CrearSecretoComponent {
-  secretName: string | null = null;
+  secretForm: FormGroup;
+  isLoading = false;
+  clavesMaestras: ClaveMaestra[] = [];
 
-  constructor(public dialogRef: MatDialogRef<CrearSecretoComponent>) { }
+  constructor(
+    private fb: FormBuilder,
+    private claveMaestraService: ClaveMaestraService,
+    public dialogRef: MatDialogRef<CrearSecretoComponent>
+  ) {
+    this.secretForm = this.fb.group({
+      secretName: ['', [Validators.required, Validators.minLength(5)]],
+      secretText: [''],
+      claveMaestra: ['', Validators.required]
+    });
+
+    this.claveMaestraService.getClavesMaestras().subscribe((data: ClaveMaestra[]) => {
+      this.clavesMaestras = data;
+    });
+  }
+
+  get secretName() {
+    return this.secretForm.get('secretName');
+  }
+
+  get secretText() {
+    return this.secretForm.get('secretText');
+  }
+
+  get claveMaestra() {
+    return this.secretForm.get('claveMaestra');
+  }
+
+  floatLabel(): FloatLabelType {
+    return 'auto';
+  }
 
   onCancelClick(): void {
+    this.isLoading = false;
     this.dialogRef.close();
   }
 
   onSaveClick(): void {
-    this.dialogRef.close(this.secretName);
+    if (this.secretForm.valid) {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.dialogRef.close(this.secretForm.value.secretName);
+        this.isLoading = false;
+      }, 1000);
+    }
   }
 }
