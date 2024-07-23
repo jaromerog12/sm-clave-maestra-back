@@ -3,16 +3,27 @@
     <mat-card-header>
       <mat-card-title>Tipo de elemento</mat-card-title>
     </mat-card-header>
+    <br />
+    <mat-card-content>
+      <mat-radio-group [(ngModel)]="selectedOption">
+        <mat-radio-button value="login">Login</mat-radio-button>
+        <mat-radio-button value="secreto">Secreto</mat-radio-button>
+      </mat-radio-group>
+    </mat-card-content>
+    <mat-card-actions class="mat-dialog-actions mb-2">
+      <a mat-button extended routerLink="." (click)="onCancelClick()" class="me-4">
+        <mat-icon>cancel</mat-icon>
+        Cancelar
+      </a>
+      <a mat-fab extended routerLink="." (click)="onSubmit()">
+        @if (!isLoading) {
+            <mat-icon>start</mat-icon>
+        }
+        @else {
+          <mat-icon><mat-progress-spinner diameter="24" mode="indeterminate"></mat-progress-spinner></mat-icon>
+        }
+        Siguiente
+      </a>
+    </mat-card-actions>
   </mat-card>
-  <br />
-  <mat-card-content>
-    <mat-radio-group [(ngModel)]="selectedOption">
-      <mat-radio-button value="login">Login</mat-radio-button>
-      <mat-radio-button value="secreto">Secreto</mat-radio-button>
-    </mat-radio-group>
-  </mat-card-content>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancelar</button>
-    <button mat-button (click)="getSelectedValues()" [disabled]="!selectedOption">Aceptar</button>
-  </div>
 </mat-dialog-content>
