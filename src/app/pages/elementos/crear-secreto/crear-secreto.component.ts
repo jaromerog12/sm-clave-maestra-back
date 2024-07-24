@@ -12,6 +12,8 @@ import { ClaveMaestra } from '../../clave-maestra/listar-claves-maestras/listar-
 import { ClaveMaestraService } from '../../clave-maestra/clave-maestra.service';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+import { ElementosService } from '../elementos.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-crear-secreto',
@@ -40,13 +42,17 @@ export class CrearSecretoComponent {
 
   constructor(
     private fb: FormBuilder,
+    private elementosService: ElementosService,
     private claveMaestraService: ClaveMaestraService,
+    private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<CrearSecretoComponent>
   ) {
     this.secretForm = this.fb.group({
-      secretName: ['', [Validators.required, Validators.minLength(5)]],
-      secretText: [''],
-      claveMaestra: ['', Validators.required]
+      nombre_elemento: ['', [Validators.required, Validators.minLength(5)]],
+      secreto: [''],
+      clave_id: ['', Validators.required],
+      notas: [''],
+      tipo: ['SECRETO']
     });
 
     this.claveMaestraService.getClavesMaestras().subscribe((data: ClaveMaestra[]) => {
@@ -54,16 +60,24 @@ export class CrearSecretoComponent {
     });
   }
 
-  get secretName() {
-    return this.secretForm.get('secretName');
+  get nombre_elemento() {
+    return this.secretForm.get('nombre_elemento');
   }
 
-  get secretText() {
-    return this.secretForm.get('secretText');
+  get secreto() {
+    return this.secretForm.get('secreto');
   }
 
-  get claveMaestra() {
-    return this.secretForm.get('claveMaestra');
+  get notas() {
+    return this.secretForm.get('notas');
+  }
+
+  get clave_id() {
+    return this.secretForm.get('clave_id');
+  }
+
+  get tipo() {
+    return this.secretForm.get('tipo');
   }
 
   floatLabel(): FloatLabelType {
@@ -78,10 +92,26 @@ export class CrearSecretoComponent {
   onSaveClick(): void {
     if (this.secretForm.valid) {
       this.isLoading = true;
-      setTimeout(() => {
-        this.dialogRef.close(this.secretForm.value.secretName);
-        this.isLoading = false;
-      }, 1000);
+      this.elementosService.createElemento(this.secretForm.value).subscribe({
+        next: (resp) => {
+          this.dialogRef.close({ success: true });
+          this.openSnackBar('Secreto creado exitosamente', 3000, ['custom-snackbar', 'success-snackbar']);
+          console.log('Elemento secreto añadido:', resp);
+          this.isLoading = false;
+        },
+        error: (error) => {
+          this.openSnackBar('Error al crear secreto', 5000, ['custom-snackbar', 'error-snackbar']);
+          console.error('Error al añadir elemento secreto:', error);
+          this.isLoading = false;
+        }
+      });
     }
+  }
+
+  openSnackBar(message: string, duration: number, classStyles: string[]): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: duration,
+      panelClass: classStyles
+    });
   }
 }

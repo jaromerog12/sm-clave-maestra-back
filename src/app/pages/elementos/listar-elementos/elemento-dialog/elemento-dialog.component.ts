@@ -31,7 +31,7 @@ export class ElementoDialogComponent {
   selectedOption: string | null = null;
   isLoading = false;
 
-  constructor(public dialogRef: MatDialogRef<ElementoDialogComponent>, public dialog: MatDialog) { }
+  constructor(public dialogRef: MatDialogRef<ElementoDialogComponent>, public dialog: MatDialog) {  }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -49,6 +49,7 @@ export class ElementoDialogComponent {
   onSubmit(): void {
     if (this.selectedOption === 'secreto') {
       this.isLoading = true;
+      this.dialogRef.close();
       const dialogRef = this.dialog.open(CrearSecretoComponent);
 
       dialogRef.afterClosed().subscribe(result => {

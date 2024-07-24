@@ -15,4 +15,9 @@ export class ElementosService {
   getElementos(): Observable<Elemento[]> {
     return this.http.get<Elemento[]>(`${this.apiUrl}/listar`);
   }
+
+  createElemento(elemento: any): Observable<any> {
+    console.log( elemento);
+    return this.http.post<any>(`${this.apiUrl}/crear`, elemento);
+  }
 }
