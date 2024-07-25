@@ -94,7 +94,7 @@ export class CrearSecretoComponent {
       this.isLoading = true;
       this.elementosService.createElemento(this.secretForm.value).subscribe({
         next: (resp) => {
-          this.dialogRef.close({ success: true });
+          this.dialogRef.close(resp);
           this.openSnackBar('Secreto creado exitosamente', 3000, ['custom-snackbar', 'success-snackbar']);
           console.log('Elemento secreto añadido:', resp);
           this.isLoading = false;

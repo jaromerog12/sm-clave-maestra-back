@@ -57,6 +57,9 @@ export class ListarElementosComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
+      this.elementos.push(result);
+      console.log(this.elementos);
+      this.dataSource.data = [...this.elementos];
     });
   }
 
