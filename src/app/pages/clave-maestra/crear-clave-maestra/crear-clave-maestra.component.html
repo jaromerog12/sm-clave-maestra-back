@@ -16,12 +16,95 @@
             <div>
               @if (nombre?.errors?.['required']) {
                 <div class="text-danger">
-                  El campo Nombre Clave es obligatorio.
+                  El campo es obligatorio.
                 </div>
               }
               @if (nombre?.errors?.['minlength']) {
                 <div class="text-danger">
-                  El campo Nombre Clave debe tener al menos 5 caracteres.
+                  El campo debe tener al menos 5 caracteres.
+                </div>
+              }
+            </div>
+          }
+        </div>
+        <div class="example-form-fields">
+          <mat-form-field [floatLabel]="floatLabel()"  class="w-100">
+            <mat-label>Contraseña</mat-label>
+            <input matInput  formControlName="contrasena" matInput [type]="hideContrasena() ? 'password' : 'text'"  placeholder="Ejemplo: S3cr3t0" />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="showHideContrasena($event)"
+              [attr.aria-label]="'Ocultar contraseña'"
+              [attr.aria-pressed]="hideContrasena()"
+            >
+              <mat-icon>{{hideContrasena() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          @if (contrasena?.invalid && (contrasena?.dirty || contrasena?.touched)) {
+            <div>
+              @if (contrasena?.errors?.['required']) {
+                <div class="text-danger">
+                  El campo es obligatorio.
+                </div>
+              }
+              @if (contrasena?.errors?.['minlength']) {
+                <div class="text-danger">
+                  El campo debe tener al menos 8 caracteres.
+                </div>
+              }
+            </div>
+          }
+        </div>
+        <div class="example-form-fields">
+          <mat-form-field [floatLabel]="floatLabel()"  class="w-100">
+            <mat-label>Confirma contraseña</mat-label>
+            <input matInput  formControlName="confirmar" matInput [type]="hideConfirmar() ? 'password' : 'text'"  placeholder="Ejemplo: S3cr3t0" />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="showHideConfirmar($event)"
+              [attr.aria-label]="'Ocultar contraseña'"
+              [attr.aria-pressed]="hideConfirmar()"
+            >
+              <mat-icon>{{hideConfirmar() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          @if (confirmar?.invalid && (confirmar?.dirty || confirmar?.touched)) {
+            <div>
+              @if (confirmar?.errors?.['required']) {
+                <div class="text-danger">
+                  El campo es obligatorio.
+                </div>
+              }
+              @if (confirmar?.errors?.['minlength']) {
+                <div class="text-danger">
+                  El campo debe tener al menos 5 caracteres.
+                </div>
+              }
+              @if (confirmar?.errors?.['mismatch']) {
+                <div class="text-danger">
+                  Las contraseñas no coinciden.
+                </div>
+              }
+            </div>
+          }
+        </div>
+        <div class="example-form-fields">
+          <mat-form-field [floatLabel]="floatLabel()"  class="w-100">
+            <mat-label>Pista</mat-label>
+            <input matInput  formControlName="pista" placeholder="Ejemplo: Nombre de mi hija" />
+          </mat-form-field>
+          @if (pista?.invalid && (pista?.dirty || pista?.touched)) {
+            <div>
+              @if (pista?.errors?.['required']) {
+                <div class="text-danger">
+                  El campo es obligatorio.
+                </div>
+              }
+              @if (pista?.errors?.['minlength']) {
+                <div class="text-danger">
+                  El campo debe tener al menos 5 caracteres.
                 </div>
               }
             </div>
@@ -34,7 +117,7 @@
         <mat-icon>cancel</mat-icon>
         Cancelar
       </a>
-      <a mat-fab extended routerLink="." (click)="onSubmit()">
+      <a mat-fab extended routerLink="." (click)="onSubmit()" [disabled]="!options.valid">
          @if (!isLoading) {
             <mat-icon>save</mat-icon>
          }

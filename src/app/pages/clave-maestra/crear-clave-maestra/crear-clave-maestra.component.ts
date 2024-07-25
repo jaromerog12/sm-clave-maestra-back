@@ -1,5 +1,5 @@
-import { Component, EventEmitter, inject, model, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FloatLabelType, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -60,18 +60,44 @@ export class CrearClaveMaestraComponent {
   options: FormGroup;
   isLoading = false;
   claveMaestra: Object = {};
+  hideContrasena = signal(true);
+  hideConfirmar = signal(true);
 
   private claveMaestraService = inject(ClaveMaestraService);
 
   constructor(private fb: FormBuilder, private _snackBar: MatSnackBar) {
+    const formOptions: AbstractControlOptions = {
+      validators: this.passwordMatchValidator
+    };
+    
     this.options = this.fb.group({
       id: [''],
-      nombre: ['', [Validators.required, Validators.minLength(5)]]
-    });
+      nombre: ['', [Validators.required, Validators.minLength(5)]],
+      contrasena: ['', [Validators.required, Validators.minLength(8)]],
+      confirmar: ['', [Validators.required, Validators.minLength(8)]],
+      pista: ['', [Validators.required, Validators.minLength(5)]]
+    }, formOptions);
   }
 
+  passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const formGroup = control as FormGroup;
+    const password = formGroup.get('contrasena');
+    const confirmPassword = formGroup.get('confirmar');
+    if (!password || !confirmPassword) {
+      return null;
+    }
+    if (password.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ mismatch: true });
+    } else {
+      confirmPassword.setErrors(null);
+    }
+    return null;
+  };
+
   onSubmit(): void {
+    console.log(this.confirmar?.errors);
     if (this.options.valid) {
+      console.log("Guardar")
       const nuevaClave: ClaveMaestra = this.options.value;
       this.claveMaestraService.addClaveMaestra(nuevaClave).subscribe({
         next: (resp) => {
@@ -108,8 +134,34 @@ export class CrearClaveMaestraComponent {
     });
   }
 
+  showHideContrasena(event: MouseEvent) {
+    console.log(event);
+    this.hideContrasena.set(!this.hideContrasena());
+    event.stopPropagation();
+  }
+
+  showHideConfirmar(event: MouseEvent) {
+    this.hideConfirmar.set(!this.hideConfirmar());
+    event.stopPropagation();
+  }
+
   get nombre() {
     const control = this.options.get('nombre');
+    return control;
+  }
+
+  get contrasena() {
+    const control = this.options.get('contrasena');
+    return control;
+  }
+
+  get confirmar() {
+    const control = this.options.get('confirmar');
+    return control;
+  }
+
+  get pista() {
+    const control = this.options.get('pista');
     return control;
   }
 }

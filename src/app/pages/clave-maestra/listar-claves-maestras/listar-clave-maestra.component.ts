@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providers: [ClaveMaestraService]
 })
 export class ClaveMaestraComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['position', 'name'];
+  displayedColumns: string[] = ['position', 'name', 'clue'];
   clavesMaestras: Array<ClaveMaestra> = [];
   dataSource = new MatTableDataSource<ClaveMaestra>(this.clavesMaestras);
   readonly dialog = inject(MatDialog);
@@ -39,17 +39,26 @@ export class ClaveMaestraComponent implements AfterViewInit, OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CrearClaveMaestraComponent, {
-      width: '600px',
-      disableClose: true
-    });
+    try {
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.clavesMaestras.push(result);
-        this.dataSource.data = [...this.clavesMaestras];
-      }
-    });
+    
+      const dialogRef = this.dialog.open(CrearClaveMaestraComponent, {
+        width: '600px',
+        disableClose: true
+      });
+
+      
+
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.clavesMaestras.push(result);
+          this.dataSource.data = [...this.clavesMaestras];
+        }
+      });
+    }catch(e){
+      console.log(e);
+    }
   }
 
   loadClavesMaestras(): void {
@@ -91,5 +100,8 @@ export class ClaveMaestraComponent implements AfterViewInit, OnInit {
 
 export interface ClaveMaestra {
   nombre: string;
+  confirmar: string;
+  contrasena: string;
+  pista: string;
   id: number;
 }
