@@ -1,0 +1,85 @@
+<mat-dialog-content>
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Crear Login</mat-card-title>
+    </mat-card-header>
+    <br />
+    <mat-card-content>
+      <form [formGroup]="secretForm">
+        <div class="example-form-fields">
+          
+          <mat-form-field [floatLabel]="floatLabel()" class="w-100">
+            <mat-label>Nombre Login</mat-label>
+            <input matInput formControlName="nombre_elemento" placeholder="Ejemplo: GitHub" />
+          </mat-form-field>
+          @if (nombre_elemento?.invalid && (nombre_elemento?.dirty || nombre_elemento?.touched)) {
+            <div>
+              @if (nombre_elemento?.errors?.['required']) {
+                <div class="text-danger">
+                  El campo Nombre Login es obligatorio.
+                </div>
+              }
+              @if (nombre_elemento?.errors?.['minlength']) {
+                <div class="text-danger">
+                  El campo Nombre Login debe tener al menos 5 caracteres.
+                </div>
+              }
+            </div>
+          }
+          
+
+          <mat-form-field [floatLabel]="floatLabel()" class="w-100">
+            <mat-label>Notas</mat-label>
+            <input matInput formControlName="notas" />
+          </mat-form-field>
+          
+
+          <mat-form-field [floatLabel]="floatLabel()" class="w-100">
+            <mat-label>URL</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="5"
+                      formControlName="url"></textarea>
+          </mat-form-field>
+
+
+          <mat-form-field [floatLabel]="floatLabel()" class="w-100">
+            <mat-label>Email</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="5"
+                      formControlName="email"></textarea>
+          </mat-form-field>
+
+
+          <mat-form-field [floatLabel]="floatLabel()" class="w-100">
+            <mat-label>Clave Maestra</mat-label>
+            <mat-select formControlName="clave_id">
+              <mat-option *ngFor="let clave of clavesMaestras" [value]="clave.id">
+                {{ clave.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <input type="hidden" formControlName="tipo">
+          
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="mat-dialog-actions mb-2">
+      <a mat-button extended routerLink="." (click)="onCancelClick()" class="me-4">
+        <mat-icon>cancel</mat-icon>
+        Cancelar
+      </a>
+      <a mat-fab extended routerLink="." (click)="onSaveClick()">
+        <mat-icon *ngIf="!isLoading">save</mat-icon>
+        <mat-progress-spinner *ngIf="isLoading" diameter="24" mode="indeterminate"></mat-progress-spinner>
+        Guardar
+      </a>
+    </mat-card-actions>
+  </mat-card>
+</mat-dialog-content>
