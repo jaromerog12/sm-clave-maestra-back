@@ -45,7 +45,7 @@ export class ClaveMaestraComponent implements AfterViewInit, OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
+      if (result) {
         this.clavesMaestras.push(result);
         this.dataSource.data = [...this.clavesMaestras];
       }

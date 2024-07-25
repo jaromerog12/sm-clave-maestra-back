@@ -52,14 +52,18 @@ export class ListarElementosComponent {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(ElementoDialogComponent);
 
+    const dialogRef = this.dialog.open(ElementoDialogComponent, {
+      disableClose: true
+    });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      this.elementos.push(result);
-      console.log(this.elementos);
-      this.dataSource.data = [...this.elementos];
+      if (result) {
+        console.log(result);
+        this.elementos.push(result);
+        console.log(this.elementos);
+        this.dataSource.data = [...this.elementos];
+      }
     });
   }
 

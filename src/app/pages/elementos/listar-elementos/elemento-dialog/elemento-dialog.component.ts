@@ -49,12 +49,14 @@ export class ElementoDialogComponent {
   onSubmit(): void {
     if (this.selectedOption === 'secreto') {
       this.isLoading = true;
-      this.dialogRef.close();
+      
       const dialogRef = this.dialog.open(CrearSecretoComponent);
 
       dialogRef.afterClosed().subscribe(result => {
-        this.isLoading = false;
-        console.log('The secret name is:', result);
+        if (result) {
+          this.dialogRef.close(result);
+          this.isLoading = false;
+        }
         // Handle the result as needed
       });
     } else {
