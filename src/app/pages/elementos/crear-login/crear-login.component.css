@@ -1,0 +1,6 @@
+.mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end; /* Alinea las acciones a la derecha */
+    padding-right: 16px;
+  }
+  

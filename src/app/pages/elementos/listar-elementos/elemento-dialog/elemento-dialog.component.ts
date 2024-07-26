@@ -8,6 +8,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { CrearSecretoComponent } from '../../crear-secreto/crear-secreto.component';
+import { CrearLoginComponent } from '../../crear-login/crear-login.component';
+
 
 @Component({
   selector: 'app-elemento-dialog',
@@ -60,9 +62,15 @@ export class ElementoDialogComponent {
         // Handle the result as needed
       });
     } else {
-      this.isLoading = false;
-      // Handle the case where the option is not "secreto"
-      console.log('Selected option is not secreto.');
+      this.isLoading = true;
+      const dialogRef = this.dialog.open(CrearLoginComponent);
+      
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.dialogRef.close(result);
+          this.isLoading = false;
+        }
+      });
     }
   }
 
